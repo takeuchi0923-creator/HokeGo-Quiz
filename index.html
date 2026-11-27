@@ -258,11 +258,13 @@ body:has(#quiz:not(.hidden)) main{max-width:980px;padding:8px 12px 26px}
 
 
 /* HokeGo automatic opening splash */
-#hokegoSplash{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#073d2b;opacity:1;visibility:visible;transition:opacity .55s ease,visibility .55s ease}
+#hokegoSplash{position:fixed;left:0;top:0;width:100vw;height:100vh;height:100dvh;z-index:99999;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at center,#176a4d 0%,#073d2b 78%);opacity:1;visibility:visible;transition:opacity .55s ease,visibility .55s ease}
 #hokegoSplash.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
-#hokegoSplash img{width:100%;height:100%;object-fit:cover;object-position:center}
+#hokegoSplash img{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;object-position:center}
+body.splash-active{overflow:hidden}
+@media (max-width:600px){#hokegoSplash{width:100vw;height:100vh;height:100dvh}#hokegoSplash img{object-fit:contain}}
 @media (prefers-reduced-motion:reduce){#hokegoSplash{transition:none}}
-</style></head><body>
+</style></head><body class="splash-active">
 <div id="hokegoSplash" aria-label="HokeGo 起動画面"><img src="./splash-screen.png" alt="HokeGo"></div>
 <header class="quest-header">
  <div class="header-copy"><div class="brand">HOKeGO · HEALTH QUEST</div><div class="hero">保健学習クエスト</div><div class="sub">知識を集めて、健康の世界を冒険しよう！</div></div>
@@ -408,7 +410,7 @@ $("heroBoy").src=HERO_BOY;$("heroGirl").src=HERO_GIRL;$("boardBoy").src=HERO_BOY
   function showHokeGoSplash(){
     var splash=document.getElementById('hokegoSplash');
     if(!splash)return;
-    window.setTimeout(function(){splash.classList.add('is-hidden');},2200);
+    window.setTimeout(function(){splash.classList.add('is-hidden');document.body.classList.remove('splash-active');},2200);
     window.setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},2850);
   }
   if(document.readyState==='loading'){
