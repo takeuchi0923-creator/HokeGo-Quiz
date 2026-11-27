@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#17152f"><title>HokeGo Quiz｜保健テスト対策</title>
+<meta name="theme-color" content="#123b35">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png"><title>HokeGo Quiz｜保健テスト対策</title>
 <style>
 :root{--green:#123b35;--green2:#1d6254;--mint:#e8f3ed;--gold:#e8b94e;--ink:#182522;--muted:#687772;--paper:#f5f7f4;--white:#fff;--red:#b84949}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Yu Gothic UI","Meiryo",sans-serif}
@@ -253,7 +256,14 @@ body:has(#quiz:not(.hidden)) main{max-width:980px;padding:8px 12px 26px}
 .quiz-boy{max-height:190px;max-width:clamp(84px,19vw,150px);left:10px;}
 .quiz-girl{max-height:190px;max-width:clamp(78px,18vw,140px);right:10px;}
 
+
+/* HokeGo automatic opening splash */
+#hokegoSplash{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#073d2b;opacity:1;visibility:visible;transition:opacity .55s ease,visibility .55s ease}
+#hokegoSplash.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+#hokegoSplash img{width:100%;height:100%;object-fit:cover;object-position:center}
+@media (prefers-reduced-motion:reduce){#hokegoSplash{transition:none}}
 </style></head><body>
+<div id="hokegoSplash" aria-label="HokeGo 起動画面"><img src="./icons/splash-screen.png" alt="HokeGo"></div>
 <header class="quest-header">
  <div class="header-copy"><div class="brand">HOKeGO · HEALTH QUEST</div><div class="hero">保健学習クエスト</div><div class="sub">知識を集めて、健康の世界を冒険しよう！</div></div>
  <div class="header-characters"><img id="heroBoy" alt="冒険者の男の子"><img id="heroGirl" alt="案内役の女の子"></div>
@@ -392,4 +402,21 @@ function retryWrong(){let a=answers.filter(x=>!x.correct).map(x=>x.item);if(!a.l
 function goHome(){$("quiz").classList.add("hidden");$("result").classList.add("hidden");$("home").classList.remove("hidden");renderHome()}
 renderHome();
 $("heroBoy").src=HERO_BOY;$("heroGirl").src=HERO_GIRL;$("boardBoy").src=HERO_BOY;$("boardGirl").src=HERO_GIRL;$("quizBoy").src=HERO_BOY;$("quizGirl").src=HERO_GIRL;
-</script></body></html>
+</script>
+<script>
+(function(){
+  function showHokeGoSplash(){
+    var splash=document.getElementById('hokegoSplash');
+    if(!splash)return;
+    window.setTimeout(function(){splash.classList.add('is-hidden');},2200);
+    window.setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},2850);
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',showHokeGoSplash,{once:true});
+  }else{
+    showHokeGoSplash();
+  }
+})();
+</script>
+
+</body></html>
