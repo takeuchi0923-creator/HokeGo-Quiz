@@ -154,6 +154,10 @@ h1,h2,h3,p,small,strong,span,label{
 }
 
 
+/* Quiz page: always-visible route back to the platform home */
+.quiz-home-nav{display:flex;justify-content:flex-end;margin:0 2px 8px}
+.quiz-home-button{min-height:40px;padding:7px 17px;border:2px solid #795333;border-radius:12px;background:linear-gradient(180deg,#fff8e8,#f1dfb8);color:#68462d;font:700 14px "JK Maru Gothic","Yu Gothic",sans-serif;box-shadow:0 3px 0 #c6a77b;cursor:pointer}
+.quiz-home-button:active{transform:translateY(2px);box-shadow:0 1px 0 #c6a77b}
 /* Quest battle board: illustrated wooden frame, parchment and character guides */
 body:has(#quiz:not(.hidden))>header{display:none}
 body:has(#quiz:not(.hidden)) main{max-width:980px;padding:8px 12px 26px}
@@ -345,6 +349,7 @@ body.splash-active{overflow:hidden}
 </section>
 <section id="quiz" class="hidden">
  <div class="quest-play">
+  <div class="quiz-home-nav"><button type="button" class="quiz-home-button" onclick="goPortal()">⌂ ホーム</button></div>
   <div class="quest-topline">
    <div class="wood-plaque"><span id="quizUnit"></span></div>
    <div class="progress-plaque"><div class="progress-track"><i id="progress"></i></div><span class="star-mark">★</span><strong id="counter"></strong></div>
