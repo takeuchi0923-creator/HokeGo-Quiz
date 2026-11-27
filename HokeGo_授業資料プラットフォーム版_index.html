@@ -264,6 +264,25 @@ body:has(#quiz:not(.hidden)) main{max-width:980px;padding:8px 12px 26px}
 body.splash-active{overflow:hidden}
 @media (max-width:600px) and (orientation:portrait){#hokegoSplash{width:100vw;height:100vh;height:100dvh}#hokegoSplash img{object-fit:cover;object-position:center}}
 @media (prefers-reduced-motion:reduce){#hokegoSplash{transition:none}}
+
+/* HokeGo learning platform portal */
+.portal-home{max-width:980px;margin:26px auto 50px;padding:clamp(18px,4vw,42px);}
+.portal-welcome{text-align:center;padding:clamp(24px,5vw,48px) 12px 30px;}
+.portal-kicker,.materials-kicker{font-size:11px;letter-spacing:.18em;font-weight:900;color:#23845d;}
+.portal-welcome h1{font-size:clamp(27px,5vw,44px);line-height:1.25;margin:12px 0;color:#174b38;letter-spacing:.04em;}
+.portal-welcome p{color:#557267;font-size:clamp(13px,2vw,16px);margin:0;}
+.portal-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:780px;margin:0 auto;}
+.portal-card{appearance:none;border:1px solid #d8e8df;border-radius:22px;background:linear-gradient(145deg,#fff,#f3faf5);padding:clamp(22px,4vw,36px);min-height:245px;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:10px;cursor:pointer;box-shadow:0 10px 28px rgba(20,75,52,.08);transition:transform .18s,box-shadow .18s;}
+.portal-card:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(20,75,52,.14)}
+.quiz-card{background:linear-gradient(145deg,#fff,#f3f7ff);border-color:#dce5f5;}
+.portal-card-icon{font-size:38px;margin-bottom:5px}.portal-card-title{font-size:clamp(22px,3vw,29px);font-weight:900;color:#174b38}.quiz-card .portal-card-title{color:#274c7c}
+.portal-card-desc{font-size:14px;color:#5d7169;line-height:1.7}.portal-card-link{margin-top:auto;padding-top:16px;font-weight:900;color:#168254}.quiz-card .portal-card-link{color:#3568a8}
+.portal-footnote{text-align:center;margin-top:35px;font-size:10px;letter-spacing:.2em;color:#91a99d;font-weight:800}
+.materials-wrap{max-width:980px;margin:20px auto 55px;padding:clamp(16px,3vw,30px)}
+.materials-heading{padding:18px 4px 24px;border-bottom:1px solid #dce9e1;margin-bottom:20px}.materials-heading h1{font-size:clamp(27px,4vw,36px);color:#174b38;margin:8px 0}.materials-heading p{font-size:14px;color:#64786e;margin:0;line-height:1.7}
+.lesson-list{display:grid;grid-template-columns:1fr;gap:13px}.lesson-card{border:1px solid #dce9e1;border-radius:14px;background:#fff;padding:17px 19px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.lesson-title{font-weight:900;color:#234d3a;font-size:17px}.lesson-subtitle{color:#75877d;font-size:12px;margin-top:5px}.lesson-files{display:flex;flex-wrap:wrap;gap:8px}.file-link{display:inline-flex;align-items:center;justify-content:center;padding:9px 13px;border-radius:9px;background:#eaf5ee;color:#17613f;text-decoration:none;font-size:12px;font-weight:800}.file-link.ppt{background:#fff1e8;color:#a34d24}.materials-empty{padding:35px 20px;text-align:center;border:1px dashed #b9d2c3;border-radius:15px;background:#f7fbf8;color:#61776b;line-height:1.8}.materials-note{font-size:12px;color:#7b8e83;margin:18px 2px}.materials-nav{margin-top:22px}
+@media(max-width:640px){.portal-home{margin:5px auto 28px;padding:12px 16px}.portal-welcome{padding:25px 4px 24px}.portal-actions{grid-template-columns:1fr;gap:14px}.portal-card{min-height:190px;padding:22px}.lesson-card{grid-template-columns:1fr}.lesson-files{margin-top:4px}.materials-wrap{padding:14px}}
+
 </style></head><body class="splash-active">
 <div id="hokegoSplash" aria-label="HokeGo 起動画面">
 <picture>
@@ -276,7 +295,33 @@ body.splash-active{overflow:hidden}
  <div class="header-characters"><img id="heroBoy" alt="冒険者の男の子"><img id="heroGirl" alt="案内役の女の子"></div>
 </header>
 <main>
-<section id="home">
+<section id="home" class="portal-home">
+ <div class="portal-welcome">
+  <div class="portal-kicker">HOKeGO · HEALTH LEARNING PLATFORM</div>
+  <h1>学びを、もっと身近に。</h1>
+  <p>授業資料で学び、クイズで理解を深めよう。</p>
+ </div>
+ <div class="portal-actions">
+  <button class="portal-card materials-card" onclick="openMaterials()">
+   <span class="portal-card-icon">📚</span><span class="portal-card-title">授業資料</span>
+   <span class="portal-card-desc">授業ごとの資料を閲覧・ダウンロード</span><span class="portal-card-link">資料を見る　›</span>
+  </button>
+  <button class="portal-card quiz-card" onclick="openQuiz()">
+   <span class="portal-card-icon">🎮</span><span class="portal-card-title">クイズ</span>
+   <span class="portal-card-desc">これまでの保健クイズに挑戦</span><span class="portal-card-link">クイズを始める　›</span>
+  </button>
+ </div>
+ <div class="portal-footnote">HEALTH QUEST · LEARN &amp; PLAY</div>
+</section>
+<section id="materials" class="hidden">
+ <div class="materials-wrap">
+  <div class="materials-heading"><div class="materials-kicker">HOKeGO · CLASS MATERIALS</div><h1>授業資料</h1><p>授業ごとに資料をまとめています。PDFはここで閲覧できます。</p></div>
+  <div id="lessonMaterials" class="lesson-list"></div>
+  <div class="materials-note">資料は授業回ごとに追加されます。PDF・PowerPointのダウンロードに対応します。</div>
+  <div class="materials-nav"><button class="btn secondary" onclick="goPortal()">← ホームへ戻る</button></div>
+ </div>
+</section>
+<section id="quizHome" class="hidden">
  <div class="quest-board">
   <div class="board-heading"><span>✦</span> モード選択 <span>✦</span></div>
   <div class="actions mode-actions">
@@ -361,7 +406,7 @@ function allItems(){return DATA.flatMap((u,ui)=>u.questions.map((q,qi)=>({u:ui,q
 function startUnit(i){begin(DATA[i].questions.map((q,qi)=>({u:i,qi,q})),DATA[i].title)}
 function startRandom(){let a=allItems().sort(()=>Math.random()-.5).slice(0,15);begin(a,"全範囲ランダム・15問")}
 function startWeak(){let a=allItems().filter(x=>{let s=stats[keyFor(x.u,x.qi)];return s&&s.n>=1&&s.c/s.n<.7;}).sort(()=>Math.random()-.5).slice(0,15);if(!a.length){alert("まだ苦手問題の記録がありません。まずは単元別クイズに挑戦してください。");return;}begin(a,"苦手問題の復習")}
-function begin(a,title){queue=a;idx=0;answers=[];modeTitle=title;$("home").classList.add("hidden");$("result").classList.add("hidden");$("quiz").classList.remove("hidden");showQuestion()}
+function begin(a,title){queue=a;idx=0;answers=[];modeTitle=title;$("home").classList.add("hidden");$("quizHome").classList.add("hidden");$("materials").classList.add("hidden");$("result").classList.add("hidden");$("quiz").classList.remove("hidden");showQuestion()}
 function setCharacterMood(mood){
  const happy=mood==="happy",worried=mood==="worried";
  const pick=(set,who)=>{
@@ -406,7 +451,17 @@ function showResult(){
  $("progress").style.width="100%";
 }
 function retryWrong(){let a=answers.filter(x=>!x.correct).map(x=>x.item);if(!a.length){alert("今回は全問正解です！");return;}begin(a,"間違えた問題の復習")}
-function goHome(){$("quiz").classList.add("hidden");$("result").classList.add("hidden");$("home").classList.remove("hidden");renderHome()}
+function openQuiz(){$("home").classList.add("hidden");$("materials").classList.add("hidden");$("quiz").classList.add("hidden");$("result").classList.add("hidden");$("quizHome").classList.remove("hidden");renderHome()}
+function openMaterials(){$("home").classList.add("hidden");$("quizHome").classList.add("hidden");$("quiz").classList.add("hidden");$("result").classList.add("hidden");$("materials").classList.remove("hidden");renderMaterials()}
+function goPortal(){$("materials").classList.add("hidden");$("quizHome").classList.add("hidden");$("quiz").classList.add("hidden");$("result").classList.add("hidden");$("home").classList.remove("hidden")}
+function goHome(){$("quiz").classList.add("hidden");$("result").classList.add("hidden");$("quizHome").classList.remove("hidden");renderHome()}
+// Add each lesson's files here. Paths are relative to this index.html in the GitHub repository.
+const LESSON_MATERIALS = [];
+function renderMaterials(){
+ const root=$("lessonMaterials");
+ if(!LESSON_MATERIALS.length){root.innerHTML='<div class="materials-empty"><strong>授業資料はこれから追加できます。</strong><br>授業回ごとにPDFやPowerPointを登録すると、ここに一覧表示されます。</div>';return;}
+ root.innerHTML=LESSON_MATERIALS.map((lesson,i)=>{const files=(lesson.files||[]).map(f=>`<a class="file-link ${f.type==='ppt'?'ppt':''}" href="${f.url}" target="_blank" rel="noopener" ${f.download?'download':''}>${f.type==='ppt'?'PowerPoint':'PDF'}を${f.type==='pdf'?'閲覧・':''}ダウンロード</a>`).join('');return `<article class="lesson-card"><div><div class="lesson-title">${lesson.title}</div><div class="lesson-subtitle">${lesson.description||'授業資料'}</div></div><div class="lesson-files">${files||'<span class="lesson-subtitle">資料準備中</span>'}</div></article>`}).join('');
+}
 renderHome();
 $("heroBoy").src=HERO_BOY;$("heroGirl").src=HERO_GIRL;$("boardBoy").src=HERO_BOY;$("boardGirl").src=HERO_GIRL;$("quizBoy").src=HERO_BOY;$("quizGirl").src=HERO_GIRL;
 </script>
