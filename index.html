@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123b35">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png"><title>HokeGo Quiz｜保健テスト対策</title>
@@ -268,6 +270,14 @@ body:has(#quiz:not(.hidden)) main{max-width:980px;padding:8px 12px 26px}
 body.splash-active{overflow:hidden}
 @media (max-width:600px) and (orientation:portrait){#hokegoSplash{width:100vw;height:100vh;height:100dvh}#hokegoSplash img{object-fit:cover;object-position:center}}
 @media (prefers-reduced-motion:reduce){#hokegoSplash{transition:none}}
+/* iPhoneホーム画面起動時：ステータスバー領域までオープニング画像を広げる */
+@supports (height: 100dvh) {
+  #hokegoSplash {
+    top: calc(-1 * env(safe-area-inset-top, 0px));
+    height: calc(100dvh + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 
 /* HokeGo learning platform portal */
 .portal-home{max-width:980px;margin:26px auto 50px;padding:clamp(18px,4vw,42px);}
@@ -326,6 +336,7 @@ body.splash-active{overflow:hidden}
  </div>
 </section>
 <section id="quizHome" class="hidden">
+ <div class="quiz-home-nav"><button type="button" class="quiz-home-button" onclick="goPortal()">⌂ ホーム</button></div>
  <div class="quest-board">
   <div class="board-heading"><span>✦</span> モード選択 <span>✦</span></div>
   <div class="actions mode-actions">
