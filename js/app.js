@@ -17,8 +17,18 @@ const letters=["A","B","C","D"];
 let queue=[],idx=0,answers=[],modeTitle="",current=null,displayOptions=[];
 const $=id=>document.getElementById(id);
 const keyFor=(u,q)=>u+"-"+q;
-let stats=JSON.parse(localStorage.getItem("hokego_stats_v2")||"{}");
-let optionOrders=JSON.parse(localStorage.getItem("hokego_option_orders_v2")||"{}");
+function safeReadHokeGoStorage(key,fallback){
+ try{
+  const raw=window.localStorage.getItem(key);
+  if(!raw)return fallback;
+  const value=JSON.parse(raw);
+  return value && typeof value==="object" ? value : fallback;
+ }catch(e){
+  return fallback;
+ }
+}
+let stats=safeReadHokeGoStorage("hokego_stats_v2",{});
+let optionOrders=safeReadHokeGoStorage("hokego_option_orders_v2",{});
 function shuffledOptionOrder(u,qi,count){let a=Array.from({length:count},(_,i)=>i);for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}let k=keyFor(u,qi),prev=optionOrders[k];if(prev&&a.every((v,i)=>v===prev[i])&&a.length>1){a.push(a.shift());}optionOrders[k]=a;localStorage.setItem("hokego_option_orders_v2",JSON.stringify(optionOrders));return a;}
 function save(){localStorage.setItem("hokego_stats_v2",JSON.stringify(stats));}
 function renderHome(){

@@ -7,53 +7,6 @@
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png"><title>HokeGo Quiz｜保健テスト対策</title>
 <link rel="stylesheet" href="css/styles.css">
-<style id="materials-home-button-unified">
-/* 授業資料ページのホームボタンをクイズ画面のデザインに統一 */
-#materials .materials-home-hotspot{
-  position:absolute!important;
-  z-index:40!important;
-  top:13.5%!important;
-  right:1.5%!important;
-  width:11.5%!important;
-  height:46%!important;
-  min-width:0!important;
-  min-height:0!important;
-  box-sizing:border-box!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  padding:0 10px!important;
-  margin:0!important;
-  border:4px solid #9b4b2c!important;
-  border-radius:999px!important;
-  background:linear-gradient(180deg,#fff9e9 0%,#f3dfb8 100%)!important;
-  color:#542c20!important;
-  font-family:"JK Maru Gothic","Yu Gothic",sans-serif!important;
-  font-size:clamp(13px,1.65vw,25px)!important;
-  font-weight:900!important;
-  letter-spacing:.04em!important;
-  line-height:1!important;
-  text-shadow:0 1px rgba(255,255,255,.8)!important;
-  box-shadow:0 4px 0 #743a24,0 7px 13px rgba(0,0,0,.28),inset 0 0 0 2px rgba(255,255,255,.6)!important;
-  cursor:pointer!important;
-  touch-action:manipulation!important;
-  -webkit-tap-highlight-color:transparent!important;
-}
-#materials .materials-home-hotspot:active{
-  transform:translateY(2px)!important;
-  box-shadow:0 2px 0 #743a24,0 4px 8px rgba(0,0,0,.24),inset 0 0 0 2px rgba(255,255,255,.6)!important;
-}
-@media(max-width:700px){
-  #materials .materials-home-hotspot{
-    top:10%!important;
-    right:1.5%!important;
-    width:17%!important;
-    height:48%!important;
-    font-size:clamp(11px,3vw,17px)!important;
-    border-width:3px!important;
-  }
-}
-</style>
 </head><body class="splash-active">
 <div id="hokegoSplash" aria-label="HokeGo 起動画面">
   <img class="opening-app-icon" src="assets/image_01.png" alt="HokeGo アプリアイコン">
@@ -175,4 +128,24 @@
 </main><footer>HokeGo Quiz prototype · 問題データは今後追加・修正できます</footer>
 
 <script src="js/app.js"></script>
+
+<script>
+/* 起動画面のフェイルセーフ：アプリ本体でエラーが起きても起動画面に閉じ込めない */
+(function(){
+  function releaseSplash(){
+    var splash=document.getElementById('hokegoSplash');
+    if(splash){
+      splash.classList.add('is-hidden');
+      window.setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},650);
+    }
+    document.body.classList.remove('splash-active','opening-active','opening-home-zoom');
+    var home=document.getElementById('home');
+    if(home && !home.classList.contains('hidden')) home.style.removeProperty('display');
+  }
+  window.setTimeout(releaseSplash,5000);
+  window.addEventListener('error',function(){window.setTimeout(releaseSplash,1200);});
+  window.addEventListener('unhandledrejection',function(){window.setTimeout(releaseSplash,1200);});
+})();
+</script>
+
 </body></html>
